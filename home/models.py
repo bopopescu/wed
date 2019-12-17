@@ -3,6 +3,38 @@ from django.db import models
 # Create your models here.
 
 
+class UserModel(models.Model):
+    username = models.CharField(verbose_name='用户账号', null=True, blank=True, max_length=100)
+    password = models.CharField(verbose_name='密码', null=True, blank=True, max_length=255)
+    status = models.CharField(verbose_name='状态', choices=[('enabled', '启用'), ('disabled', '禁用')], default='enabled', max_length=100)
+    nickname = models.CharField(verbose_name='昵称', null=True, blank=True, max_length=255)
+    avatar = models.CharField(verbose_name='头像', null=True, blank=True, max_length=255)
+    create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
+    update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)
+
+    def create(self, **kwargs):
+
+        return self.objects.create(**kwargs)
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        db_table = 'user'
+
+
+class MemberModel(models.Model):
+    openid = models.CharField(verbose_name='微信用户id', null=True, blank=True, max_length=255)
+    avatar = models.CharField(verbose_name='头像', null=True, blank=True, max_length=255)
+    nickname = models.CharField(verbose_name='昵称', null=True, blank=True, max_length=255)
+
+    def __str__(self):
+        return self.openid
+
+    class Meta:
+        db_table = 'member'
+
+
 class CategoryModel(models.Model):
     img_path = models.CharField(verbose_name='图标路径', null=True, blank=True, max_length=255)
     pid = models.IntegerField(verbose_name='父类id', null=True, blank=True)
@@ -11,6 +43,9 @@ class CategoryModel(models.Model):
     style = models.CharField(verbose_name='样式', null=True, blank=True, max_length=50)
     create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
     update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'category'
@@ -22,6 +57,9 @@ class BannerModel(models.Model):
     img_url = models.URLField(verbose_name='图片跳转url', null=True, blank=True)
     title = models.CharField(verbose_name='图片标题', null=True, blank=True, max_length=255)
     description = models.CharField(verbose_name='图片描述', null=True, blank=True, max_length=500)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'banner'
@@ -39,6 +77,9 @@ class ProductModel(models.Model):
     description = models.CharField(verbose_name='产品描述', null=True, blank=True, max_length=255)
     create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
     update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'product'
