@@ -3,6 +3,20 @@ from django.db import models
 # Create your models here.
 
 
+class CategoryModel(models.Model):
+    img_path = models.CharField(verbose_name='图标路径', null=True, blank=True, max_length=255)
+    pid = models.IntegerField(verbose_name='父类id', null=True, blank=True)
+    path = models.CharField(verbose_name='路径', null=True, blank=True, max_length=255)
+    name = models.CharField(verbose_name='分类名称', null=True, blank=True, max_length=50)
+    style = models.CharField(verbose_name='样式', null=True, blank=True, max_length=50)
+    create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
+    update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)
+
+    class Meta:
+        db_table = 'category'
+        verbose_name = '分类表'
+
+
 class BannerModel(models.Model):
     img_path = models.CharField(verbose_name='图片路径', max_length=255, null=True, blank=True)
     img_url = models.URLField(verbose_name='图片跳转url', null=True, blank=True)
@@ -15,6 +29,7 @@ class BannerModel(models.Model):
 
 
 class ProductModel(models.Model):
+    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, null=True, blank=True, verbose_name='外键')
     title = models.CharField(verbose_name='产品标题', null=True, blank=True, max_length=255)
     price = models.DecimalField(verbose_name='单价', max_digits=10, decimal_places=2, null=True, blank=True)
     product_type = models.CharField(choices=[('product', '产品'), ('production', '作品')], default='product', max_length=50)

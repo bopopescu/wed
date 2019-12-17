@@ -19,7 +19,8 @@
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
-            <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+            <input type="hidden" name="next" value="admin">
+            <input value="登录" lay-submit lay-filter="login_" style="width:100%;" type="submit">
             <hr class="hr20" >
         </form>
     </div>
@@ -32,12 +33,21 @@
               //   //关闭后的操作
               //   });
               //监听提交
-              form.on('submit(login)', function(data){
-                  console.log(data)
+              form.on('submit(login_)', function(data){
+
+                  $.ajax({
+                    url: "{{ app_path }}",
+                      data: data.field,
+                      dataType: 'JSON',
+                      type: 'post',
+                      success: function (data) {
+                          console.log(data)
+                      }
+                  });
                 {% comment %} alert(888){% endcomment %}
-                layer.msg(JSON.stringify(data.field),function(){
+               {% comment %} layer.msg(JSON.stringify(data.field),function(){
                     location.href='index.html'
-                });
+                });{% endcomment %}
                 return false;
               });
             });
