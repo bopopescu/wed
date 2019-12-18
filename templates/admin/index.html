@@ -1,15 +1,7 @@
-
 {% extends 'admin/layui.html' %}
 
 {% block title %}
 <title>后台登录</title>
-{% endblock %}
-
-{% block append_js %}
-
-    {% load static %}
-    <script type="text/javascript" src="{% static 'js/xadmin.js' %}"></script>
-
 {% endblock %}
 
 
@@ -337,7 +329,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='{% url "show.welcome" %}' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>

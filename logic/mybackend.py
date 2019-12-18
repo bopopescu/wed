@@ -18,14 +18,18 @@ class SettingsBackend:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             user = None
-        if user is not None and user.objects.exists():
+        if user is not None:
             try:
-                assert check_password(password, user.password) is not False
+                assert check_password(password, user.password) is not False, Exception('密码错误')
+
                 request.session['username'] = username
             except User.DoesNotExist:
                 # Create a new user. There's no need to set a password
                 # because only the password from settings.py is checked.
-                return None
+                user = None
+            except Exception as e:
+                print(e)
+                user = None
             return user
         return None
 
@@ -34,3 +38,11 @@ class SettingsBackend:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+    @staticmethod
+    def username(username: str):
+        try:
+            res = User.objects.filter(username__exact=username).first()
+        except Exception as e:
+            res = False
+        return res

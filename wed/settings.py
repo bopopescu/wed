@@ -35,20 +35,20 @@ INSTALLED_APPS = [
 
     # 'django.contrib.auth',
     # 'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
-    # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
-
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'home'
 ]
 
 MIDDLEWARE = [
     # 'django.middleware.security.SecurityMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'home.commonMiddleware.AuthUserMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -132,4 +132,9 @@ STATICFILES_DIRS = (
     os.path.join(os.path.join(BASE_DIR, 'static')),
 )
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 ENCODE_MODE = 'pbkdf2_sha256'
+
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
