@@ -21,6 +21,7 @@ class SettingsBackend:
         if user is not None and user.objects.exists():
             try:
                 assert check_password(password, user.password) is not False
+                request.session['username'] = username
             except User.DoesNotExist:
                 # Create a new user. There's no need to set a password
                 # because only the password from settings.py is checked.

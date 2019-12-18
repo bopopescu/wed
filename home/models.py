@@ -3,7 +3,18 @@ from django.db import models
 # Create your models here.
 
 
-class UserModel(models.Model):
+class CommonModel(models.Model):
+
+    def toJson(self):
+        ls_name = [filed.name for filed in self._meta.get_fields()]
+
+        return {k: getattr(self, k) for k in ls_name}
+
+    class Meta:
+        abstract = True
+
+
+class UserModel(CommonModel):
     username = models.CharField(verbose_name='用户账号', null=True, blank=True, max_length=100)
     password = models.CharField(verbose_name='密码', null=True, blank=True, max_length=255)
     status = models.CharField(verbose_name='状态', choices=[('enabled', '启用'), ('disabled', '禁用')], default='enabled', max_length=100)
@@ -11,10 +22,6 @@ class UserModel(models.Model):
     avatar = models.CharField(verbose_name='头像', null=True, blank=True, max_length=255)
     create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
     update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)
-
-    def create(self, **kwargs):
-
-        return self.objects.create(**kwargs)
 
     def __str__(self):
         return self.username
