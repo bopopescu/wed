@@ -47,6 +47,7 @@ class CategoryModel(models.Model):
     pid = models.IntegerField(verbose_name='父类id', null=True, blank=True)
     path = models.CharField(verbose_name='路径', null=True, blank=True, max_length=255)
     name = models.CharField(verbose_name='分类名称', null=True, blank=True, max_length=50)
+    types = models.CharField(verbose_name='类型', choices=[('photo', '婚摄'), ('dress', '装扮')], default='dress', max_length=20, db_column='type')
     style = models.CharField(verbose_name='样式', null=True, blank=True, max_length=50)
     create_time = models.DateTimeField(verbose_name='创建时间', null=True, blank=True)
     update_time = models.DateTimeField(verbose_name='更新时间', null=True, blank=True)

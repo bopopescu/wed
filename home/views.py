@@ -3,7 +3,7 @@ from django.core import serializers
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from logic.mybackend import SettingsBackend
+from logic.mybackend import SettingsBackend, require_login_user
 import json
 from home.logic import UserClass
 from django.urls import reverse
@@ -26,7 +26,8 @@ def login(request):
     return render(request, 'admin/login.html')
 
 
-def index(request):
+@require_login_user
+def index(self, request):
     return render(request, 'admin/index.html')
 
 

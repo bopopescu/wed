@@ -1,6 +1,8 @@
 from django.contrib.auth.hashers import check_password, make_password
 from home.models import UserModel as User
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class SettingsBackend:
@@ -44,5 +46,15 @@ class SettingsBackend:
         try:
             res = User.objects.filter(username__exact=username).first()
         except Exception as e:
-            res = False
+            res = None
         return res
+
+
+def require_login_user(function=None, login_url=None):
+    def func(request):
+        print(request.user)
+        if request.user is None:
+            return HttpResponseRedirect(reverse('show.login') if login_url is None else login_url)
+        return function(request)
+
+    return func

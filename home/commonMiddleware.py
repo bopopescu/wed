@@ -14,5 +14,7 @@ class AuthUserMiddleware(MiddlewareMixin):
         username = request.session.get('username', None)
         if username:
             request.user = SettingsBackend.username(username)
+        else:
+            request.user = None
 
 
