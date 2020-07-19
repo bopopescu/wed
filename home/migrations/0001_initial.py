@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             name='ImagesModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('img_type', models.CharField(choices=[('default', '主图'), ('slave', '从图')], default='slave', max_length=50)),
+                ('img_type', models.CharField(choices=[('default', '主图'), ('subordinate', '从图')], default='subordinate', max_length=50)),
                 ('img_path', models.ImageField(blank=True, null=True, upload_to='', verbose_name='图片路径')),
                 ('img_url', models.URLField(blank=True, null=True, verbose_name='图片跳转url')),
                 ('product', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='home.ProductModel', verbose_name='关联外键')),

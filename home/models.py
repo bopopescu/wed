@@ -96,7 +96,7 @@ class ProductModel(models.Model):
 
 class ImagesModel(models.Model):
     product = models.ForeignKey('ProductModel', on_delete=models.CASCADE, null=True, blank=True, verbose_name='关联外键')
-    img_type = models.CharField(choices=[('default', '主图'), ('slave', '从图')], default='slave', max_length=50)
+    img_type = models.CharField(choices=[('default', '主图'), ('subordinate', '从图')], default='subordinate', max_length=50)
     img_path = models.ImageField(verbose_name='图片路径', null=True, blank=True)
     img_url = models.URLField(verbose_name='图片跳转url', null=True, blank=True)
 
